@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+
+        {% block body %}
+        <div class="col-lg-12">
+            <div class="card card-outline card-primary"> 
+               <div class="card-body">
+                   <form action="{% url 'seller/addProduct' %}" id="add-product" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                       <div id="msg" class=""></div>
+                       <div class="row">
+                           <div class="col-md-6 ">
+                               <b class="text-muted">Product information</b>
+                               <div class="form-group">
+                                   <label for="" class="control-label">Product name</label>
+                                   <input type="text" name="name" autocomplete="off"  class="form-control form-control-sm" required value="">
+                               </div>
+                               <div class="form-group ">
+                                    <label for="" class="control-label">Product Type</label>
+                                    <select name="type" id="" class="form-control input-sm select2" required>
+                                        <option value=""></option>
+                                        {% for category in product_categories %}
+                                            <option value="{{ category.id }}" {% if category.id == selected_product_type %} selected {% endif %}>{{ category.product_type }}</option>
+                                        {% endfor %}
+                                    </select>                                    
+                                </div>  
+                                <div class="form-group">
+                                    <label for="" class="control-label">Quantity</label>
+                                    <input type="text" name="quantity" autocomplete="off"  class="form-control form-control-sm" required value="{{product.stock}}" oninput="validateQuantity(this)">
+                                </div>                               
+                                                              
+                          </div>
+                          <div class="col-md-6">
+                            <br>
+                            <div class="form-group">
+                                <label class="control-label">Amount</label>
+                                <input type="text" class="form-control form-control-sm" autocomplete="off" name="amount" required value="">
+                                <small id="#msg"></small>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Product image</label>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" name="image" required>
+                                    <label class="custom-file-label">Choose file</label>
+                                </div>
+                                <small id="#msg"></small>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Description</label>
+                                <textarea name="description" autocomplete="off" id="" cols="30" rows="2" class="form-control" required></textarea>
+                            </div>
+                        </div>
+                        
+                       </div>
+                       <hr>
+                       <div class="col-lg-12 text-right justify-content-center d-flex">
+                           <button class="btn btn-flat  bg-gradient-primary mx-2" form="add-product">Save</button>
+                           <button class="btn btn-secondary" type="button" onclick="location.href = '{% url 'seller/productList' %}'">Cancel</button>
+                       </div>
+                   </form>
+               </div>
+           </div>
+       </div>
+       <style>
+           img#cimg{
+               max-height: 15vh;
+               /*max-width: 6vw;*/
+           }
+           
+       </style>
+       <script>
+            {% if message %}
+                $(document).ready(function() {
+                    $('#manage-product').prepend('<div class="alert alert-success">{{ message }}</div>');
+                });
+            {% endif %}
+            function validateQuantity(input) {
+                // Remove any non-numeric characters and convert to integer
+                var quantity = parseInt(input.value.replace(/[^0-9]/g, ''));
+                
+                // Check if quantity is negative
+                input.style.borderColor = '';
+                if (isNaN(quantity) || quantity < 0) {
+                    // Set input border color to red
+                    input.style.borderColor = 'red';
+                    // Set input value to 0
+                    input.value = '0';
+                } else {
+                    // Set input border color to default
+                    input.style.borderColor = '';
+                    // Update input value with validated quantity
+                    input.value = quantity;
+                }
+            }
+            function validateName(input) {
+                // Remove any non-numeric characters and convert to integer
+                var name = parseInt(input.value.replace(/[^a-zA-Z ]/g, ''));
+                
+                input.value = name;
+            }
+       </script>
+       {% endblock body %}
+    </body>
+</html>

@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load countries %}
+{% block body %}
+<style>
+  
+</style>
+<!-- ...:::: Start Breadcrumb Section:::... -->
+<div class="breadcrumb-section breadcrumb-bg-color--golden">
+    <div class="breadcrumb-wrapper">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h3 class="breadcrumb-title">Order history</h3>
+            <div
+              class="breadcrumb-nav breadcrumb-nav-color--black breadcrumb-nav-hover-color--golden"
+            >
+              <nav aria-label="breadcrumb">
+                <ul>
+                  <li><a href="{% url 'index' %}">Home</a></li>
+                  <li><a href="{% url 'cart' %}">Cart</a></li>
+                  <li class="active" aria-current="page">Order History</li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ...:::: End Breadcrumb Section:::... -->
+<div class="order-history" id="orders" style="margin-bottom:100px;margin-right:100px;margin-left:100px;">
+    <h4>Orders</h4>
+    <div class="table_page table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Order</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Total</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ order.date_ordered }}</td>
+                    <td><span class="success">
+                            {% if order.date_shipped is None %}
+                                Placed
+                            {% else %}
+                                Delivered
+                            {% endif %}
+                        </span>
+                    </td>
+                    <td>
+                        {% for item in order.items.all %}
+                            ₹{{ item.get_total_item_price }} for {{ item.quantity }} item(s)
+                            {% if not forloop.last %}<br>{% endif %}
+                        {% endfor %}
+                    </td>
+                    <td><a href="{% url 'order-summary' order.id %}" class="view">view</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock body %}

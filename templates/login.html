@@ -1,0 +1,84 @@
+{% extends 'base.html' %} {% block body %}
+<!-- Offcanvas Overlay -->
+<style>
+  .d-inline-block a {
+    display: inline-block;
+    margin-right: 10px; /* optional spacing between links */
+  }
+  .error-message {
+      color: #721c24;
+      background-color: #f8d7da;
+      border-color: #f5c6cb;
+      padding: 0.75rem 1.25rem;
+      margin-bottom: 1rem;
+      border: 1px solid transparent;
+      border-radius: 0.25rem;
+  }
+  
+</style>
+<div class="offcanvas-overlay"></div>
+
+<!-- ...:::: Start Breadcrumb Section:::... -->
+<div class="breadcrumb-section breadcrumb-bg-color--golden">
+  <div class="breadcrumb-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h3 class="breadcrumb-title">Login</h3>
+          <div
+            class="breadcrumb-nav breadcrumb-nav-color--black breadcrumb-nav-hover-color--golden"
+          >
+            <nav aria-label="breadcrumb">
+              <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/product">Shop</a></li>
+                <li class="active" aria-current="page">Login</li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ...:::: End Breadcrumb Section:::... -->
+
+<!-- ...:::: Start Customer Login Section :::... -->
+
+<main class="form-signin w-50 m-auto" style="padding-bottom: 100px;">
+  <div class="account_form" data-aos="fade-up" data-aos-delay="0">
+    <h3>login</h3>
+    <form action="/login" id="login-form" method="POST">
+      {% csrf_token %}
+      <div class="default-form-box">
+          <label>email <span>*</span></label>
+          <input type="text" name="email">
+      </div>
+      <div class="default-form-box">
+          <label>Passwords <span>*</span></label>
+          <input type="password" name="password">
+      </div>
+      <div class="login_submit">         
+          <button class="btn btn-md btn-black-default-hover mb-4 flex-center" type="submit">login</button>
+          <label class="checkbox-default mb-4" for="offer">
+              <input type="checkbox" id="offer">
+              <span>Remember me</span>
+          </label>
+          <div class="d-inline-block">
+            <a href="#" class="mr-3">Not a User?</a>
+            <a href="/register">Register</a>
+
+          </div>
+      </div>
+  </form>
+</div>
+</main>
+<script>
+  {% if error_message %}
+          $(document).ready(function() {
+              $('#login-form').prepend('<div class="error-message">{{ error_message }}</div>');
+          });
+    {% endif %}
+</script>
+<!-- ...:::: End Customer Login Section :::... -->
+{% endblock body %}

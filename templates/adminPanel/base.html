@@ -1,0 +1,23 @@
+{% load static %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Style Hub</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        {% include 'adminPanel/header.html' %}
+        {% include 'adminPanel/topbar.html' %}
+        
+        {% include 'adminPanel/sidebar.html' %}
+        {% include 'adminPanel/footer.html' %}
+
+        <div class="content-wrapper">
+            {% block body %}
+            {% endblock body %}
+        </div>
+    </body>
+</html>

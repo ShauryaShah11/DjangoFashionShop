@@ -1,0 +1,242 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Style Hub</title>
+
+    <!-- ::::::::::::::Favicon icon::::::::::::::-->
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.ico' %}" type="image/png">
+
+    
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/vendor.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/plugins.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.min.css' %}">
+
+</head>
+<body>
+
+    <header class="header-section d-none d-xl-block">
+        <div class="header-wrapper">
+            <div class="header-bottom header-bottom-color--golden section-fluid sticky-header sticky-color--golden">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12 d-flex align-items-center justify-content-between">
+                            <!-- Start Header Logo -->
+                            <div class="header-logo">
+                                <div class="logo">
+                                    <a href=""><img src="{%static 'default.png' %}" alt=""></a>
+                                </div>
+                            </div>
+                            <!-- End Header Logo -->
+  
+                            <!-- Start Header Main Menu -->
+                            <div class="main-menu menu-color--black menu-hover-color--golden">
+                                <nav>
+                                    <ul>
+                                        <li>
+                                            <a href="/">Home </a>                        
+                                        </li>
+                                        <li>
+                                            <a href="/product">Shop</a>
+                                        </li>
+                                        <li>
+                                            <a href="/contact_us">Contact Us</a>
+                                        </li>
+                                        <li class="has-dropdown">
+                                        {% if request.session.user_id %}
+                                            
+                                          <a href="#">{{request.session.username}} <i class="fa fa-angle-down"></i></a>
+                                          <!-- Sub Menu -->
+                                          <ul class="sub-menu">
+                                              <li><a href="{% url 'manage_account' %}">My Account</a></li>
+                                              <li><a href="{% url 'order-history' %}">Order History</a></li>
+                                              <li><a href="{% url 'logout' %}">Logout</a></li>
+                                          </ul>
+                                        {% else %}
+                                            <a href="{% url 'login' %}">Login</a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{% url 'login' %}">customer login</a></li>
+                                                <li><a href="{% url 'seller/login' %}">seller login</a></li>
+                                                <li><a href="{% url 'adminPanel/login' %}">admin login</a></li>
+                                            </ul>
+                                        {% endif %}
+                                      </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <!-- End Header Main Menu Start -->
+  
+                            <!-- Start Header Action Link -->
+                            <ul class="header-action-link action-color--black action-hover-color--golden">
+                                <li>
+                                    <a href="#offcanvas-wishlish" class="offcanvas-toggle">
+                                        <i class="fa fa-heart" aria-hidden="true" style='margin-right:10px;'></i>                                        
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/cart" >
+                                        <i class="fa fa-shopping-cart" style='margin-right:10px;' aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#search">
+                                        <i class="icon-magnifier"></i>
+                                    </a>
+                                </li>
+                                
+                            </ul>
+                            <!-- End Header Action Link -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </header>
+      <div class="mobile-header mobile-header-bg-color--golden section-fluid d-lg-block d-xl-none">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 d-flex align-items-center justify-content-between">
+                    <!-- Start Mobile Left Side -->
+                    <div class="mobile-header-left">
+                        <ul class="mobile-menu-logo">
+                            <li>
+                                <a href="{% url 'index' %}">
+                                    <div class="logo">
+                                        <img src="{% static 'assets/images/logo/logo_black.png' %}" alt="">
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- End Mobile Left Side -->
+
+                    <!-- Start Mobile Right Side -->
+                    <div class="mobile-right-side">
+                        <ul class="header-action-link action-color--black action-hover-color--golden">
+                            <li>
+                                <a href="#search">
+                                    <i class="icon-magnifier"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#offcanvas-wishlish" class="offcanvas-toggle">
+                                    <i class="icon-heart"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'cart' %}">
+                                    <i class="icon-bag"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#mobile-menu-offcanvas" class="offcanvas-toggle offside-menu">
+                                    <i class="icon-menu"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- End Mobile Right Side -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Mobile Header -->
+    <!--  Start Offcanvas Mobile Menu Section -->
+    <div id="mobile-menu-offcanvas" class="offcanvas offcanvas-rightside offcanvas-mobile-menu-section">
+        <!-- Start Offcanvas Header -->
+        <div class="offcanvas-header text-right">
+            <button class="offcanvas-close"><i class="ion-android-close"></i></button>
+        </div> <!-- End Offcanvas Header -->
+        <!-- Start Offcanvas Mobile Menu Wrapper -->
+        <div class="offcanvas-mobile-menu-wrapper">
+            <!-- Start Mobile Menu  -->
+            <div class="mobile-menu-bottom">
+                <!-- Start Mobile Menu Nav -->
+                <div class="offcanvas-menu">
+                    <ul>
+                        <li>
+                            <a href="/"><span>Home</span></a>
+                        </li>
+                        <li>
+                            <a href="/product"><span>Shop</span></a>
+    
+                        </li>
+                        <li>
+                            <a href="/contact_us"><span>Contact Us</span></a>
+                        </li>
+                        <li>
+                            {% if request.session.user_id %}
+                                <a href="#"><span>{{request.session.username}}</span></a>
+                                <ul class="mobile-sub-menu">
+                                    <li><a href="{% url 'manage_account' %}">My Account</a></li>
+                                    <li><a href="{% url 'order-history' %}">My Orders</a></li>
+                                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                                </ul>
+                            {% else %}
+                                <a href="#">Login</a>
+                                <ul class="mobile-sub-menu">
+                                    <li><a href="{% url 'login' %}">customer login</a></li>
+                                    <li><a href="{% url 'seller/login' %}">seller login</a></li>
+                                    <li><a href="{% url 'adminPanel/login' %}">admin login</a></li>
+                                </ul>
+                            {% endif %}
+                            <li>
+                                <a href="#"><span>Pages</span></a>
+                                <ul class="mobile-sub-menu">
+                                    <li><a href="faq.html">Frequently Questions</a></li>
+                                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                                    <li><a href="404.html">404 Page</a></li>
+                                </ul>
+                            </li>                                
+                        </li>
+                    </ul>
+                </div> <!-- End Mobile Menu Nav -->
+            </div> <!-- End Mobile Menu -->
+
+            <!-- Start Mobile contact Info -->
+            <div class="mobile-contact-info">
+                <div class="logo">
+                    <a href="index.html"><img src="assets/images/logo/logo_white.png" alt=""></a>
+                </div>
+
+                <address class="address">
+                    <span>Address: MVJJ+33W, College Rd, Chalali, Nadiad, Gujarat 387001.</span>
+                    <span>Call Us: 0123456789, 0123456789</span>
+                    <span>Email: fashion.stylehub.info@gmail.com</span>
+                </address>
+
+                <ul class="social-link">
+                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                </ul>
+
+                <ul class="user-link">
+                    <li><a href="{% url 'wishlist'%}">Wishlist</a></li>
+                    <li><a href="{% url 'cart'%}">Cart</a></li>
+                    <li><a href="{% url 'cart'%}">Checkout</a></li>
+                </ul>
+            </div>
+            <!-- End Mobile contact Info -->
+
+        </div> <!-- End Offcanvas Mobile Menu Wrapper -->
+    </div> <!-- ...:::: End Offcanvas Mobile Menu Section:::... -->
+
+    <script src="{% static 'assets/js/vendor/vendor.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/plugins.min.js' %}"></script>
+
+    <!-- Main JS -->
+    <script src="{% static 'assets/js/main.js' %}"></script>
+    {% block body %}
+    {% endblock body %}
+    
+
+</body>
+</html>

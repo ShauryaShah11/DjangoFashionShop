@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Style Hub</title>
+
+    <!-- ::::::::::::::Favicon icon::::::::::::::-->
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.ico'  %}" type="image/png">
+
+    
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/vendor.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/plugins.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.min.css' %}">
+
+</head>
+<body>
+    {% include "header.html" %}
+    <!-- Start Offcanvas Mobile Menu Section -->
+    
+    <script src="{% static 'assets/js/vendor/vendor.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/plugins.min.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Main JS -->
+    <script src="{% static 'assets/js/main.js' %}"></script>
+    {% block body %}
+    {% endblock body %}
+    
+    {% include "footer.html" %}
+
+</body>
+</html>

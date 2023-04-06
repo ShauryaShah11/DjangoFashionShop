@@ -1,0 +1,75 @@
+{% extends 'base.html' %} {% block body %}
+<style>
+  
+</style>
+
+<!-- Offcanvas Overlay -->
+<div class="offcanvas-overlay"></div>
+
+<!-- ...:::: Start Breadcrumb Section:::... -->
+<div class="breadcrumb-section breadcrumb-bg-color--golden">
+  <div class="breadcrumb-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h3 class="breadcrumb-title">Manage Account</h3>
+          <div
+            class="breadcrumb-nav breadcrumb-nav-color--black breadcrumb-nav-hover-color--golden"
+          >
+            <nav aria-label="breadcrumb">
+              <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/product">Shop</a></li>
+                <li class="active" aria-current="page">My Account</li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ...:::: End Breadcrumb Section:::... -->
+
+<!-- ...:::: Start Customer register Section :::... -->
+
+<main class="form-signin w-50 m-auto" style="padding-bottom: 100px;">
+    <div class="account_form" data-aos="fade-up" data-aos-delay="0">
+        <h3>Account Information</h3>
+            <form action="{%  url 'manage_account'%}" method="POST" id="manage-form">
+            {% csrf_token %}
+            <div class="default-form-box">
+                <label>First Name</label>
+                <input type="text" name="firstname" value="{{user.first_name}}">
+            </div>
+            <div class="default-form-box">
+                <label>Last Name </label>
+                <input type="text" name="lastname" value="{{user.last_name}}">
+            </div>
+            <div class="default-form-box">
+                <label>email  </label>
+                <input type="email" name="email" value="{{user.email}}">
+            </div>
+            <div class="default-form-box">
+                <label>Contact Number </label>
+                <input type="text" name="contact" value="{{user.phone_number}}">
+            </div>      
+            <div class="register_submit" >
+                <button class="btn btn-md btn-black-default-hover mb-4 flex-center" type="submit">Update</button>
+            </div>
+        </form>
+    </div>
+</main>
+
+<script>
+    {% if error_message %}
+          $(document).ready(function() {
+              $('#manage-form').prepend('<div class="alert alert-success">{{ error_message }}</div>');
+          });
+    {% endif %}
+</script>
+
+
+  
+<!-- ...:::: End Customer register Section :::... -->
+{% endblock body %}

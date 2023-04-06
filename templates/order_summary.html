@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load countries %}
+{% block body %}
+<div class="breadcrumb-section breadcrumb-bg-color--golden">
+    <div class="breadcrumb-wrapper">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h3 class="breadcrumb-title">Order Summary</h3>
+            <div
+              class="breadcrumb-nav breadcrumb-nav-color--black breadcrumb-nav-hover-color--golden"
+            >
+              <nav aria-label="breadcrumb">
+                <ul>
+                  <li><a href="{% url 'index' %}">Home</a></li>
+                  <li><a href="{% url 'order-history' %}">Order History</a></li>
+                  <li class="active" aria-current="page">Order Summary</li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="container" style="margin-bottom:100px;">
+    <div class="row">
+        <div class="col-lg-8">
+            <h3>Order Summary</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order_item in order.items.all %}
+                        <tr>
+                            <td><a href="{% url 'product_details' order_item.item.id %}">{{ order_item.item.product_name }}</a></td>
+                            <td>{{ order_item.quantity }}</td>
+                            <td>₹{{ order_item.get_total_item_price }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-4">
+            <h3>Order Details</h3>
+            <p><b>Order ID:</b> {{ order.id }}</p>
+            <p><b>Date Ordered:</b> {{ order.date_ordered }}</p>
+            <p><b>Shipping Address:</b>
+                {{ order.shipping_address.appartment_address }},
+                {{ order.shipping_address.street_address }},
+                {{ order.shipping_address.zip }},
+                {{ order.shipping_address.country }},
+                <p>Total Price: ₹{{ order.get_total }}</p>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock body %}

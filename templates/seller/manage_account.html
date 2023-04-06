@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+
+        {% block body %}
+        <div class="col-lg-12">
+            <div class="card card-outline card-primary"> 
+               <div class="card-body">
+                <form action="{% url 'seller/manage_account' %}" id="manage-profile" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                       <div id="msg" class=""></div>
+                       <div class="row">
+                           <div class="col-md-6 ">
+                               <b class="text-muted">Account information</b>
+                               <div class="form-group">
+                                   <label for="" class="control-label">First Name</label>
+                                   <input type="text" name="firstname" autocomplete="off"  class="form-control form-control-sm" required value="{{user.first_name}}">
+                               </div>
+                               <div class="form-group">
+                                    <label for="" class="control-label">Email</label>
+                                    <input type="text" name="email" autocomplete="off"  class="form-control form-control-sm" required value="{{user.email}}">
+                                </div>                                                              
+                          </div>
+                          <div class="col-md-6">
+                            <br>
+                            <div class="form-group">
+                                <label class="control-label">Last Name</label>
+                                <input type="text" class="form-control form-control-sm" autocomplete="off" name="lastname" required value="{{user.last_name}}">
+                            </div>   
+                            <div class="form-group">
+                                <label class="control-label">Phone Number</label>
+                                <input type="text" class="form-control form-control-sm" autocomplete="off" name="contact" required value="{{user.phone_number}}">
+                            </div>            
+                        </div>                        
+                       </div>
+                       <hr>
+                       <div class="col-lg-12 text-right justify-content-center d-flex">
+                           <button class="btn btn-flat  bg-gradient-primary mx-2" form="manage-profile">Update</button>
+                           <button class="btn btn-secondary" type="button" onclick="location.href = '{% url 'seller/index' %}'">Cancel</button>
+                       </div>
+                   </form>
+               </div>
+           </div>
+       </div>
+       <style>
+           img#cimg{
+               max-height: 15vh;
+               /*max-width: 6vw;*/
+           }
+           
+       </style>
+       <script>
+            {% if message %}
+                $(document).ready(function() {
+                    $('#manage-profile').prepend('<div class="alert alert-success">{{ message }}</div>');
+                });
+            {% endif %}
+            
+       </script>
+       {% endblock body %}
+    </body>
+</html>

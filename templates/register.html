@@ -1,0 +1,152 @@
+{% extends 'base.html' %} {% block body %}
+<style>
+  .error-message {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+}
+</style>
+
+<!-- Offcanvas Overlay -->
+<div class="offcanvas-overlay"></div>
+
+<!-- ...:::: Start Breadcrumb Section:::... -->
+<div class="breadcrumb-section breadcrumb-bg-color--golden">
+  <div class="breadcrumb-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h3 class="breadcrumb-title">register</h3>
+          <div
+            class="breadcrumb-nav breadcrumb-nav-color--black breadcrumb-nav-hover-color--golden"
+          >
+            <nav aria-label="breadcrumb">
+              <ul>
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'product' %}">Shop</a></li>
+                <li class="active" aria-current="page">register</li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ...:::: End Breadcrumb Section:::... -->
+
+<!-- ...:::: Start Customer register Section :::... -->
+
+<main class="form-signin w-50 m-auto" style="padding-bottom: 100px;">
+  <div class="account_form" data-aos="fade-up" data-aos-delay="0">
+    <h3>Register</h3>
+    {% for message in messages %}
+      <p class="alert alert-success mt-3">{{message}}</p>
+    {% endfor %}
+    <form action="{% url 'register' %}" method="POST" id="register-form"  onsubmit="return validateForm()">
+      {% csrf_token %}
+      <div class="default-form-box">
+        <label>First Name <span>*</span></label>
+        <input type="text" name="firstname" oninput="validateName(this)" required>
+      </div>
+      <div class="default-form-box">
+        <label>Last Name <span>*</span></label>
+        <input type="text" name="lastname" oninput="validateName(this)" required>
+      </div>
+      <div class="default-form-box">
+          <label>email <span>*</span></label>
+          <input type="email" name="email" required>
+      </div>
+      <div class="default-form-box">
+        <label>Contact Number <span>*</span></label>
+        <input type="text" name="contact" required>
+      </div>
+      <div class="default-form-box">
+          <label>Password <span>*</span></label>
+          <input type="password" name="password" required>
+      </div>
+      <div class="default-form-box">
+        <label>Confirm Password <span>*</span></label>
+        <input type="password" name="cpass" required>
+        <span id="password-match"></span>
+      </div>       
+      <div class="default-form-box">
+        <label>Register as</label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="user_type" value="customer">
+            <label class="form-check-label" for="flexRadioDefault1">
+              Customer
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="user_type" value="seller">
+            <label class="form-check-label" for="flexRadioDefault1">
+              Seller
+            </label>
+          </div>
+      </div>
+      <div class="register_submit" >
+          <button class="btn btn-md btn-black-default-hover mb-4 flex-center" type="submit">Register</button>
+      </div>
+  </form>
+</div>
+</main>
+
+<script>
+  {% if error_message %}
+          $(document).ready(function() {
+              $('#register-form').prepend('<div class="error-message">{{ error_message }}</div>');
+          });
+    {% endif %}
+  var passwordMatch = false;
+
+  function checkPasswordMatch() {
+    var passwordField = document.querySelector('input[name="password"]');
+    var confirmField = document.querySelector('input[name="cpass"]');
+    var matchStatus = document.getElementById('password-match');
+
+    if (passwordField.value === confirmField.value) {
+      matchStatus.textContent = 'Passwords match';
+      matchStatus.style.color = 'green';
+      passwordMatch = true;
+    } else {
+      matchStatus.textContent = 'Passwords do not match';
+      matchStatus.style.color = 'red';
+      passwordMatch = false;
+    }
+  }
+
+  var confirmField = document.querySelector('input[name="cpass"]');
+  confirmField.addEventListener('input', checkPasswordMatch);
+
+  function validateForm() {
+    if (!passwordMatch) {
+      alert('Passwords do not match');
+      return false;
+    }
+
+    // other form validation logic goes here
+
+    return true;
+  }
+  function validateName(input) {
+    var name = input.value.replace(/[^\w\s]/gi, '');
+    input.style.borderColor = '';
+    if (name === '') {
+      input.style.borderColor = 'red';
+    } else {
+      input.style.borderColor = '';
+      input.value = name;
+    }
+  }
+  
+</script>
+
+
+  
+<!-- ...:::: End Customer register Section :::... -->
+{% endblock body %}

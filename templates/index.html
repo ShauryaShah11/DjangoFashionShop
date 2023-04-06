@@ -1,0 +1,171 @@
+{% extends "base.html" %} {% load static %} {% block body%}
+
+<!-- Start Offcanvas Addcart Section -->
+
+<!-- Start Offcanvas Search Bar Section -->
+<div id="search" class="search-modal">
+  <button type="button" class="close">×</button>
+  <form>
+    <input type="search" placeholder="type keyword(s) here" />
+    <button type="submit" class="btn btn-lg btn-golden">Search</button>
+  </form>
+</div>
+<div
+  id="offcanvas-wishlish"
+  class="offcanvas offcanvas-rightside offcanvas-add-cart-section"
+>
+  <!-- Start Offcanvas Header -->
+  <div class="offcanvas-header text-right">
+    <button class="offcanvas-close"><i class="ion-android-close"></i></button>
+  </div>
+  <!-- ENd Offcanvas Header -->
+
+  <!-- Start Offcanvas Mobile Menu Wrapper -->
+  <div class="offcanvas-wishlist-wrapper">
+    <h4 class="offcanvas-title">Wishlist</h4>
+    <ul class="offcanvas-wishlist">
+      {% for wishlist_item in wishlist_items %}
+      <li class="offcanvas-wishlist-item-single">
+        <div class="offcanvas-wishlist-item-block">
+          <a href="#" class="offcanvas-wishlist-item-image-link">
+            <img
+              src="{{ wishlist_item.product.product_image.url }}"
+              alt="{{ wishlist_item.product.product_name }}"
+              class="offcanvas-cart-image"
+            />
+          </a>
+          <div class="offcanvas-wishlist-item-content">
+            <a
+              href="{{ wishlist_item.product.get_absolute_url }}"
+              class="offcanvas-cart-item-link"
+              >{{ wishlist_item.product.product_name }}</a
+            >
+            <div class="offcanvas-wishlist-item-details">
+              
+              <span class="offcanvas-cart-item-details-price"
+                >₹{{ wishlist_item.product.amount }}</span
+              >
+            </div>
+          </div>
+        </div>
+        <div class="offcanvas-wishlist-item-delete text-right">
+          <a
+            href="{% url 'remove_wishlist_item' wishlist_item.id %}"
+            class="offcanvas-wishlist-item-delete"
+            ><i class="fa fa-trash-o"></i
+          ></a>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+    <ul class="offcanvas-wishlist-action-button">
+      <li>
+        <a href="/wishlist" class="btn btn-block btn-golden">View wishlist</a>
+      </li>
+    </ul>
+  </div>
+  <!-- End Offcanvas Mobile Menu Wrapper -->
+</div>
+<!-- End Offcanvas Mobile Menu Section -->
+<!-- End Offcanvas Search Bar Section -->
+<div
+  id="offcanvas-add-cart"
+  class="offcanvas offcanvas-rightside offcanvas-add-cart-section"
+>
+  <!-- Start Offcanvas Header -->
+  <div class="offcanvas-header text-right">
+    <button class="offcanvas-close"><i class="ion-android-close"></i></button>
+  </div>
+  <!-- End Offcanvas Header -->
+
+  <!-- Start  Offcanvas Addcart Wrapper -->
+</div>
+<!-- End  Offcanvas Addcart Section -->
+
+<!-- Offcanvas Overlay -->
+<div class="offcanvas-overlay"></div>
+
+<!-- Start Hero Slider Section-->
+<div class="hero-slider-section">
+  <!-- Slider main container -->
+  <div class="hero-slider-active swiper-container">
+    <!-- Additional required wrapper -->
+    <div class="swiper-wrapper">
+      <!-- Start Hero Single Slider Item -->
+      <div class="hero-single-slider-item swiper-slide">
+        <!-- Hero Slider Image -->
+        <div class="hero-slider-bg">
+          <img
+            src="{% static 'assets/images/hero-slider/home-4/hero-slider-1.jpg' %}"
+            alt=""
+          />
+        </div>
+        <!-- Hero Slider Content -->
+        <div class="hero-slider-wrapper">
+          <div class="container">
+            <div class="row">
+              <div class="col-auto">
+                <div class="hero-slider-content">
+                  <h4 class="subtitle">New collection</h4>
+                  <h2 class="title">
+                    Best Of NeoCon <br />
+                    Gold Award
+                  </h2>
+                  <a href="/product" class="btn btn-lg btn-outline-golden"
+                    >shop now
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Hero Single Slider Item -->
+      <!-- Start Hero Single Slider Item -->
+      <div class="hero-single-slider-item swiper-slide">
+        <!-- Hero Slider Image -->
+        <div class="hero-slider-bg">
+          <img
+            src="{% static 'assets/images/hero-slider/home-4/hero-slider-2.jpg' %}"
+            alt=""
+          />
+        </div>
+        <!-- Hero Slider Content -->
+        <div class="hero-slider-wrapper">
+          <div class="container">
+            <div class="row">
+              <div class="col-auto">
+                <div class="hero-slider-content">
+                  <h4 class="subtitle">New collection</h4>
+                  <h2 class="title">
+                    Luxy Chairs <br />
+                    Design Award
+                  </h2>
+                  <a href="/product" class="btn btn-lg btn-outline-golden"
+                    >shop now
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Hero Single Slider Item -->
+    </div>
+
+    <!-- If we need pagination -->
+    <div class="swiper-pagination active-color-golden"></div>
+
+    <!-- If we need navigation buttons -->
+    <div class="swiper-button-prev d-none d-lg-block"></div>
+    <div class="swiper-button-next d-none d-lg-block"></div>
+  </div>
+</div>
+<!-- End Hero Slider Section-->
+<script src="{% static 'assets/js/vendor/vendor.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/plugins.min.js' %}"></script>
+
+<!-- Main JS -->
+<script src="{% static 'assets/js/main.js' %}"></script>
+
+{% endblock body%}
