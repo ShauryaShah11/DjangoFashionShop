@@ -48,13 +48,13 @@
         </div>
         <div class="col-lg-4">
             <h3>Order Details</h3>
-            <p><b>Order ID:</b> {{ order.id }}</p>
+            <p><b>Order ID:</b> {{ order.ref_code }}</p>
             <p><b>Date Ordered:</b> {{ order.date_ordered }}</p>
             <p><b>Shipping Address:</b>
                 {{ order.shipping_address.appartment_address }},
                 {{ order.shipping_address.street_address }},
                 {{ order.shipping_address.zip }},
-                {{ order.shipping_address.country }},
+                {{ order.shipping_address.get_country_display }}
                 <p>Total Price: ₹{{ order.get_total }}</p>
             </p>
         </div>

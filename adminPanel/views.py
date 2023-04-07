@@ -23,7 +23,7 @@ def index(request):
     product_category = ProductCategories.objects.all()
     products = Product.objects.all()
     order = Order.objects.exclude(date_ordered = None)
-    order_items = OrderItem.objects.all()
+    order_items = OrderItem.objects.filter(ordered = True)
 
     total = 0
     for item in order:
@@ -34,6 +34,7 @@ def index(request):
         'seller_count': seller.count,
         'category_count': product_category.count,
         'product_count': products.count,
+        'product_delivery_count': order_items.count,
         'total_revenue': total
     } 
 

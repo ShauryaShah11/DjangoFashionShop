@@ -1,5 +1,6 @@
 # pylint: disable=E1101
 # pylint: disable=C0411
+import uuid
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from datetime import datetime
@@ -42,7 +43,6 @@ def registerUser(request):
             user_type = 1
 
         hashed_password = make_password(password)
-        print(request.POST)
         context = {}
         # checking for if email is already existed or not
         if User.objects.filter(email=email).exists():
@@ -201,7 +201,7 @@ def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
 
     # Check if the user already has an active order
-    order, created = Order.objects.get_or_create(user=user, date_shipped=None)
+    order, created = Order.objects.get_or_create(user=user, date_ordered=None)
 
     # Check if the item is already in the order
     order_item, created = OrderItem.objects.get_or_create(
@@ -215,7 +215,6 @@ def add_to_cart(request, product_id):
         order_item.quantity += 1
         order_item.save()
 
-    order.save()
     return redirect('/cart')
 
 
@@ -260,9 +259,14 @@ def checkout(request):
         # Get the user and active order
         user = get_object_or_404(User, id=request.session.get('user_id'))
 
-        # Create a new order for the user
-        order = Order.objects.get(user=user, date_shipped=None)
+        order, created = Order.objects.get_or_create(user=user,date_ordered=None)
 
+        # Get the order items for the user that are not ordered
+        order_items = OrderItem.objects.filter(user=user, ordered=False)
+
+
+        # Add the order items to the order
+        order.items.set(order_items)
         # Update the order with the shipping address and date ordered
         order.shipping_address = Address.objects.create(
             user=user,
@@ -272,6 +276,7 @@ def checkout(request):
             country=country,
         )
         order.date_ordered = timezone.now()
+        order.ref_code = create_ref_code()
         order.save()
 
         # Process the payment
@@ -374,3 +379,6 @@ def calculate_shipping_charges(total_amount):
         return 0
     else:
         return 40
+    
+def create_ref_code():
+    return str(uuid.uuid4())[:20].replace('-', '').upper()

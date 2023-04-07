@@ -5,7 +5,7 @@ from datetime import datetime
 from django.conf import settings
 from django.shortcuts import render,redirect
 from django.contrib.auth import logout
-from django.contrib.auth.hashers import check_password,make_password
+from django.contrib.auth.hashers import check_password
 from django.core.files.storage import FileSystemStorage
 from home.models import User,Product,ProductCategories,Order,OrderItem
 from django.shortcuts import get_object_or_404
@@ -22,9 +22,13 @@ def index(request):
     seller = User.objects.get(id=seller_id)
     seller_items = Product.objects.filter(user_id=seller)
     total_sales = sum([item.num_sold for item in seller_items])
+    total_revenue = sum([item.get_total_item_price() for item in OrderItem.objects.filter(item__in=seller_items, ordered=True)])
+    
     context={
         'url': "seller/home.html",
         'total_sales' : total_sales,
+        'product_count': len(seller_items),
+        'total_revenue' : total_revenue,
     } 
     return render(request, 'seller/index.html',context)
 

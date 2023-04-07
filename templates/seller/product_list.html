@@ -29,6 +29,7 @@
                 <th>Product Name</th>
                 <th>Product Type</th>
                 <th>Quantity</th>
+                <th>Unit sold</th>
                 <th>Amount</th>
                 <th class="text-center">Product Image</th>
                 <th>Action</th>
@@ -41,6 +42,7 @@
                 <th>{{product.product_name}}</th>
                 <td><b>{{product.product_type}}</b></td>
                 <td><b>{{product.stock}}</b></td>
+                <td><b>{{product.num_sold}}</b></td>
                 <td><b>₹{{product.amount}}</b></td>
                 <td class="text-center">
                   <a href="{{ product.product_image.url }}" target="_blank"

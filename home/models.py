@@ -47,7 +47,7 @@ class ProductCategories(models.Model):
 class Product(models.Model):
     product_name = models.CharField(max_length=50)
     product_type = models.ForeignKey(ProductCategories, on_delete=models.CASCADE,null=True)
-    description=models.TextField(blank=True, max_length=200)
+    description=models.TextField(blank=True, max_length=300)
     amount=models.FloatField()
     product_image = models.ImageField(upload_to='product/')
     date_added=models.DateTimeField(auto_now_add=True)
@@ -74,6 +74,7 @@ class OrderItem(models.Model):
 class Order(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     items = models.ManyToManyField(OrderItem)
+    ref_code = models.CharField(max_length=20, blank=True, null=True)
     date_ordered = models.DateTimeField(blank=True, null=True)
     date_shipped = models.DateTimeField(blank=True, null=True)
     shipping_address = models.ForeignKey(
