@@ -13,8 +13,7 @@
       margin-bottom: 1rem;
       border: 1px solid transparent;
       border-radius: 0.25rem;
-  }
-  
+  }  
 </style>
 <div class="offcanvas-overlay"></div>
 
@@ -58,6 +57,7 @@
           <label>Passwords <span>*</span></label>
           <input type="password" name="password">
       </div>
+  
       <div class="login_submit">         
           <button class="btn btn-md btn-black-default-hover mb-4 flex-center" type="submit">login</button>
           <label class="checkbox-default mb-4" for="offer">
@@ -74,7 +74,7 @@
 </div>
 </main>
 <script>
-  {% if error_message %}
+    {% if error_message %}
           $(document).ready(function() {
               $('#login-form').prepend('<div class="error-message">{{ error_message }}</div>');
           });

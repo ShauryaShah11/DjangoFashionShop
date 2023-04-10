@@ -35,7 +35,6 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'seller.apps.SellerConfig',
     'adminPanel.apps.AdminpanelConfig',
-    'sorl.thumbnail',
     'django_countries',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -140,7 +139,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'fashion.stylehub.info@gmail.com'
 EMAIL_HOST_PASSWORD = 'shaurya@vaibhav'
-
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 MESSAGE_TAGS = {
     messages.ERROR: '<alert class="alert-error">%s</alert>',

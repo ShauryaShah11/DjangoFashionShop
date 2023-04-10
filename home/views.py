@@ -1,10 +1,14 @@
 # pylint: disable=E1101
 # pylint: disable=C0411
+
 import uuid
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from datetime import datetime
 from .models import *
+from django.conf import settings
+from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 from django.contrib.auth.hashers import check_password, make_password
 from django.contrib.auth import logout
 from django_countries import countries
@@ -368,6 +372,13 @@ def contact(request):
         obj = Contact(name=name, subject=subject,
                       email=email, message=send_message)
         obj.save()
+        recipient_list = [settings.EMAIL_HOST_USER]
+        send_mail(
+            'Subject here',
+            'Here is the message.',
+            'fashion.stylehub.info@gmail.com',
+            ['recipient_list'],
+        )
         # messages.success(request,"Message sent successfully")
         return redirect("/contact_us")
     else:
