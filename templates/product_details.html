@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
+<style>
+</style>
 {% block body %}
 <!-- ...:::: Start Breadcrumb Section:::... -->
 <div class="breadcrumb-section breadcrumb-bg-color--golden">
@@ -46,15 +48,7 @@
                     <!-- Start  Product Details Text Area-->
                     <div class="product-details-text">
                         <h4 class="title">{{ product.product_name }}</h4>
-                        <div class="d-flex align-items-center">
-                            <ul class="review-star">
-                                <li class="fill"><i class="ion-android-star"></i></li>
-                                <li class="fill"><i class="ion-android-star"></i></li>
-                                <li class="fill"><i class="ion-android-star"></i></li>
-                                <li class="fill"><i class="ion-android-star"></i></li>
-                                <li class="empty"><i class="ion-android-star"></i></li>
-                            </ul>
-                            <a href="#" class="customer-review ml-2">(customer review )</a>
+                        <div class="d-flex align-items-center">     
                         </div>
                         <div class="price">₹{{ product.amount }}</div>
                         <p>{{ product.description }}</p>
@@ -91,14 +85,7 @@
                     </div> <!-- End Product Variable Area -->
 
                     <!-- Start  Product Details Catagories Area-->
-                    <div class="product-details-catagory mb-2">
-                        <span class="title">CATEGORIES:</span>
-                        <ul>
-                            <li><a href="#">BAR STOOL</a></li>
-                            <li><a href="#">KITCHEN UTENSILS</a></li>
-                            <li><a href="#">TENNIS</a></li>
-                        </ul>
-                    </div> <!-- End  Product Details Catagories Area-->
+                   
 
 
                     <!-- Start  Product Details Social Area-->

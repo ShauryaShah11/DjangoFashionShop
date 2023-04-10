@@ -33,6 +33,7 @@ def index(request):
     return render(request, 'seller/index.html',context)
 
 def login(request):
+    context={}
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
@@ -42,7 +43,7 @@ def login(request):
             error_message = 'Email or password is incorrect.'
             context['error_message'] = error_message
             return render(request,'seller/login.html', context)
-        context={}
+        
         if  check_password(password,user.password):
             # Login successful
             if user.user_type != 1  or user.approved == False:

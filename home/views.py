@@ -68,6 +68,7 @@ def registerUser(request):
 
 
 def loginUser(request):
+    context = {}
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
@@ -75,10 +76,10 @@ def loginUser(request):
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
-            messages.error(request, 'Email or password is incorrect')
+            error_message = 'Email or password is incorrect.'
+            context['error_message'] = error_message
             return redirect('login')
 
-        context = {}
         if check_password(password, user.password):
             # Login successful
             if (user.user_type != 2):
